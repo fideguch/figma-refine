@@ -135,7 +135,7 @@ Context照合チェックリスト:
 ## Step 4: Apply Modification
 
 ```
-1. HARD-GATE HG-3: テキスト修正の場合、figma.listAvailableFontsAsync() を実行
+1. HARD-GATE HG-2: テキスト修正の場合、figma.listAvailableFontsAsync() を実行
 2. use_figma コードブロック構成:
    a. Preamble: await figma.setCurrentPageAsync(targetPage)  // G-003
    b. Font loading: loadFont() with fallback chain            // G-002

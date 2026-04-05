@@ -38,7 +38,7 @@ function hexToRgb(hex) {
 
 **トリガー語**: テキスト, 文字, フォント, サイズ, ウェイト, Bold, 太字, 文言変更
 
-**HARD-GATE**: HG-3 — 変更前に listAvailableFontsAsync でフォント確認。
+**HARD-GATE**: HG-2 — 変更前に listAvailableFontsAsync でフォント確認。
 
 ```js
 // Content change

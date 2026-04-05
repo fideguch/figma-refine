@@ -1,7 +1,7 @@
 # Screenshot Verification Protocol
 
 > 修正の正確さを3層で検証し、設計観点とユーザー目線の2軸で品質を判定する。
-> HARD-GATE: HG-2 — 全3層パスするまで ReviewNote を「完了」にしない。
+> HARD-GATE: HG-4 — 全3層パスするまで ReviewNote を「完了」にしない。
 
 ## 3-Layer Verification
 
@@ -108,6 +108,41 @@ L1 screenshot → 全体バランス目視確認
 | グリッド非準拠の余白 | 最寄りの 4px グリッド値に丸める |
 
 自動修復後は必ず再度 get_screenshot を実行し、修復が成功したか確認する。
+
+## Before/After 比較（Level B 修正時）
+
+Level B の修正では、Deep Scan (Step 2) で取得した Before スクリーンショットと
+修正後の After スクリーンショットを並べて比較する。
+
+### 比較手順
+
+```
+1. Before: Deep Scan で保持した修正前スクリーンショット
+2. After: 修正適用後に get_screenshot(nodeId=フレームID) で取得
+3. 両者を並べてユーザーに提示
+4. 変更点をリストアップ（色、レイアウト、タイポグラフィ等）
+```
+
+### Before/After 報告フォーマット
+
+```
+📐 Before/After 比較: ReviewNote #2 "モダンに" (Level B)
+
+  🔹 Before:
+    - 白背景、16px 余白、Regular ウェイト
+    - [Before スクリーンショット]
+
+  🔹 After:
+    - Slate-50 背景、24px 余白、Medium ウェイト
+    - [After スクリーンショット]
+
+  変更点:
+    1. 背景色: #FFFFFF → #F8FAFC
+    2. paddingY: 16px → 24px
+    3. フォントウェイト: Regular → Medium
+```
+
+> Level A 修正では Before/After 比較は任意（3層検証で十分）。
 
 ## 出力フォーマット
 
