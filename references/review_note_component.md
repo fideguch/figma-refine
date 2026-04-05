@@ -14,7 +14,7 @@ ReviewNote (COMPONENT) — Auto-Layout: VERTICAL, HUG/HUG
 │   │
 │   ├── StatusBadge (FRAME) — Auto-Layout: HORIZONTAL, HUG/HUG
 │   │   │ cornerRadius: 12, padding: 2 top/bottom, 8 left/right
-│   │   └── StatusText (TEXT) — "未読"
+│   │   └── StatusText (TEXT) — "● 未読"
 │   │       font: Inter Medium 11px, textAutoResize: WIDTH_AND_HEIGHT
 │   │
 │   └── NoteLabel (TEXT) — "Review Note"
@@ -38,9 +38,9 @@ ReviewNote (COMPONENT) — Auto-Layout: VERTICAL, HUG/HUG
 
 | Status | Label | Badge BG | Text Color | Contrast | Use Case |
 |--------|-------|----------|------------|----------|----------|
-| Unread | 未読 | #FFF7ED | #B45309 | 5.2:1 AA | 新規配置、未処理 |
-| Read | 既読 | #EFF6FF | #1D4ED8 | 7.8:1 AAA | 処理中 or 修正適用済み・検証待ち |
-| Done | 完了 | #F0FDF4 | #047857 | 5.8:1 AA | 3層検証パス済み |
+| Unread | ● 未読 | #FFF7ED | #B45309 | 5.2:1 AA | 新規配置、未処理 |
+| Read | ◎ 既読 | #EFF6FF | #1D4ED8 | 7.8:1 AAA | 処理中 or 修正適用済み・検証待ち |
+| Done | ✓ 完了 | #F0FDF4 | #047857 | 5.8:1 AA | 3層検証パス済み |
 
 ## Bootstrap Procedure (use_figma)
 
@@ -107,7 +107,7 @@ statusText.name = 'StatusText';
 await figma.loadFontAsync(labelFont);
 statusText.fontName = labelFont;
 statusText.fontSize = 11;
-statusText.characters = '未読';
+statusText.characters = '● 未読';
 statusText.fills = [{ type: 'SOLID', color: { r: 0.71, g: 0.33, b: 0.04 } }]; // #B45309 (WCAG AA 5.2:1)
 badge.appendChild(statusText);
 

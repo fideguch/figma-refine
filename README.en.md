@@ -46,6 +46,12 @@ Step 3: Process        — Detect unread ReviewNotes → apply modifications
 Step 4: Verify         — 3-layer × dual-axis screenshot verification
 ```
 
+## How to Place ReviewNotes
+
+Place a ReviewNote instance near the element you want to modify, then write the modification instructions in the Content field.
+Filling in the TargetHint field with the target frame or node name improves Name Mode resolution accuracy.
+Position Mode (fallback) estimates the target from the ReviewNote's position, so placing it close to the target element is important.
+
 ## File Structure
 
 ```

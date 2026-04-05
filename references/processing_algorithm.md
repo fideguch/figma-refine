@@ -21,7 +21,7 @@ Step 6: Update    — ReviewNote ステータスを更新
 2. 各ページの子ノードを走査
 3. ReviewNote コンポーネントインスタンスを検出
    - 判定基準: name === "ReviewNote" or parent component name === "ReviewNote"
-4. StatusBadge の StatusText.characters === "未読" のものだけ収集
+4. StatusBadge の StatusText.characters === "● 未読" のものだけ収集
 5. 収集結果: [{noteId, content, targetHint, position, pageId}]
 ```
 
@@ -41,7 +41,27 @@ ReviewNote の Content テキストと TargetHint を正規表現でパースす
 | 1 | `SC-(\d{3})` | "SC-001のHeaderを赤に" | Screen Inventory → WF-/MK- フレーム検索 |
 | 2 | `(WF\|MK)-US\d+` | "WF-US001の余白を広げて" | フレーム名で直接マッチ |
 | 3 | `「(.+?)」` | "「ダッシュボード」のSidebar" | 括弧内をノード名として findOne 検索 |
-| 4 | TargetHint field | "対象: WF-US003 Header" | TargetHint テキストをそのまま使用 |
+| 4 | `\[Must\]\s*SC-\d{3}` or `\[Should\]\s*SC-\d{3}` | "[Must] SC-001 ダッシュボード" | プレフィックスを含むフル名で検索。SC-XXX を抽出して Screen Inventory 参照 |
+| 5 | TargetHint field | "対象: WF-US003 Header" | TargetHint テキストをそのまま使用 |
+
+### Duplicate Name Check（同名フレーム検出）
+
+Name Mode でマッチが見つかった場合、同名ノードが複数存在しないか確認する。
+
+```
+1. get_metadata でページ内の全ノードを取得
+2. matchedName と同一名のノードを全件抽出
+3. if (matches.length > 1):
+   → ユーザーに一覧を提示して確認を求める:
+     "⚠ 同名のフレームが {matches.length} 件見つかりました:
+      1. {name} (ID: {id}, x: {x}, y: {y})
+      2. {name} (ID: {id}, x: {x}, y: {y})
+      どのフレームが対象ですか?"
+4. if (matches.length === 1):
+   → そのまま処理を続行
+```
+
+> **背景**: Toolbox PJ で同名フレームが複数存在し、API が意図しないフレームを編集した事故あり。Name Mode は名前の一意性を仮定しないこと。
 
 ### Path Traversal（子ノード解決）
 
@@ -68,6 +88,8 @@ Name Mode でマッチしなかった場合のみ使用。
 
 ```
 1. ReviewNote の absoluteBoundingBox を取得
+   ※ get_metadata 呼び出し時は depth=2 を推奨。depth 不足だと子フレームの
+     absoluteBoundingBox が返されず、トップレベルフレームしか検索対象にならない。
 2. 中心点を計算: (x + width/2, y + height/2)
 3. 同一ページの WF-/MK- プレフィックスフレームのみ検索対象
    （DS- ページは除外）
@@ -149,7 +171,7 @@ badge.fills = newFills;
 // StatusText 更新
 const statusText = figma.getNodeById(statusTextId);
 await figma.loadFontAsync(statusText.fontName);
-statusText.characters = '完了';
+statusText.characters = '✓ 完了';
 statusText.fills = [{ type: 'SOLID', color: { r: 0.02, g: 0.47, b: 0.34 } }]; // #047857
 ```
 

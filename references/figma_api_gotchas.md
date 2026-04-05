@@ -74,6 +74,22 @@ node.layoutSizingVertical = 'HUG';
 
 Auto-layout 親には resize() を使わない。padding / itemSpacing で制御する。
 
+### 具体的な失敗パターン: height collapse
+
+```js
+// WRONG: HORIZONTAL auto-layout フレームに resize() → 高さが 10px に潰れる
+frame.layoutMode = 'HORIZONTAL';
+frame.resize(360, 10);  // height=10 で子要素が見えなくなる
+
+// CORRECT: auto-layout コンテナには resize() を使わず、sizing mode で制御する
+parent.appendChild(child);
+child.layoutSizingHorizontal = 'FILL';   // width: parent に追従
+child.layoutSizingVertical = 'HUG';      // height: content に追従
+// resize() は呼ばない
+```
+
+> **実例**: Toolbox PJ 2026-04-02 で `resize(360, 10)` により HORIZONTAL auto-layout フレームの高さが 10px に潰れ、L3 スクリーンショットで初めて発覚。
+
 ## G-006: appendChild → layoutSizing の順序厳守
 
 FILL は親が auto-layout を持ち、子が追加済みでないと設定できない。

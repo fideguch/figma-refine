@@ -46,6 +46,12 @@ Step 3: Process        — 未読 ReviewNote を検出 → 修正適用
 Step 4: Verify         — 3層 × 2軸でスクリーンショット検証
 ```
 
+## ReviewNote の配置方法
+
+ReviewNote インスタンスを修正したい要素の近くに配置し、Content テキストに修正指示を記入してください。
+TargetHint フィールドにターゲットのフレーム名やノード名を記入すると、Name Mode による解決精度が上がります。
+Position Mode（フォールバック）は ReviewNote の位置からターゲットを推定するため、対象要素の近くに配置することが重要です。
+
 ## ファイル構成
 
 ```
