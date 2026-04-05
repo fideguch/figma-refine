@@ -34,7 +34,7 @@ get_screenshot(nodeId=親フレームID, fileKey=ファイルキー)
 ### L1: Page Level
 
 ```
-get_screenshot(fileKey=ファイルキー)  // ページ全体
+get_screenshot(nodeId=ページID, fileKey=ファイルキー)  // ページ全体
 ```
 
 **確認観点**:

@@ -113,7 +113,7 @@ Context照合チェックリスト:
 ## Step 4: Apply Modification
 
 ```
-1. HARD-GATE HG-3: テキスト修正の場合、listAvailableFontsAsync を実行
+1. HARD-GATE HG-3: テキスト修正の場合、figma.listAvailableFontsAsync() を実行
 2. use_figma コードブロック構成:
    a. Preamble: await figma.setCurrentPageAsync(targetPage)  // G-003
    b. Font loading: loadFont() with fallback chain            // G-002
@@ -134,23 +134,23 @@ Context照合チェックリスト:
 
 | 検証結果 | 新ステータス | StatusBadge色 |
 |---------|------------|--------------|
-| 3層全パス | 完了 | #10B981 (green) |
-| 修正適用済み・検証中 | 既読 | #3B82F6 (blue) |
-| 非対応 or エラー | 既読 + 注記 | #3B82F6 (blue) |
+| 3層全パス | 完了 | #047857 (green, WCAG AA) |
+| 修正適用済み・検証中 | 既読 | #1D4ED8 (blue, WCAG AAA) |
+| 非対応 or エラー | 既読 + 注記 | #1D4ED8 (blue, WCAG AAA) |
 
 ステータス更新の use_figma コード:
 ```js
 // G-001: fills は clone→modify→reassign
 const badge = figma.getNodeById(badgeId);
 const newFills = JSON.parse(JSON.stringify(badge.fills));
-newFills[0] = { type: 'SOLID', color: { r: 0.06, g: 0.73, b: 0.51 } }; // 完了=green
+newFills[0] = { type: 'SOLID', color: { r: 0.02, g: 0.47, b: 0.34 } }; // #047857 完了=green (WCAG AA 5.8:1)
 badge.fills = newFills;
 
 // StatusText 更新
 const statusText = figma.getNodeById(statusTextId);
 await figma.loadFontAsync(statusText.fontName);
 statusText.characters = '完了';
-statusText.fills = [{ type: 'SOLID', color: { r: 0.06, g: 0.73, b: 0.51 } }];
+statusText.fills = [{ type: 'SOLID', color: { r: 0.02, g: 0.47, b: 0.34 } }]; // #047857
 ```
 
 ## Batch Processing

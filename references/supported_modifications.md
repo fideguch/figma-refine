@@ -61,9 +61,10 @@ node.fontName = newFont;
 **トリガー語**: 幅, 高さ, サイズ, width, height, 大きく, 小さく
 
 ```js
-// Non-auto-layout nodes only
+// Non-auto-layout nodes only (auto-layout は padding/constraints で調整)
 node.resize(newWidth, newHeight);
 // G-005: resize 後に sizing mode を再設定
+// Non-auto-layout → FIXED, auto-layout 子 → FILL or HUG (G-005 参照)
 node.layoutSizingHorizontal = 'FIXED';
 node.layoutSizingVertical = 'FIXED';
 ```
